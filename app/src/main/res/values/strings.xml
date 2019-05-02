@@ -4,4 +4,8 @@
     <string name="title_activity_device">DeviceActivity</string>
     <string name="title_activity_brick">BrickActivity</string>
     <string name="title_activity_controll">ControllActivity</string>
+    <string name="right">Right</string>
+    <string name="left">Left</string>
+    <string name="up">Up</string>
+    <string name="down">Down</string>
 </resources>

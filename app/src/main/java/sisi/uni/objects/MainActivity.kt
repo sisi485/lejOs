@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import kotlinx.android.synthetic.main.activity_main.*
 import android.bluetooth.BluetoothAdapter
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.content.Intent
@@ -19,24 +18,19 @@ class MainActivity : AppCompatActivity() {
     var COCKY = "00:16:53:18:8F:D3"
 
     //view element
-    lateinit var mStatusBlueTv: TextView
-    lateinit var mPairedTv: TextView
-    lateinit var mBlueIv: ImageView
-    lateinit var mOnBtn: Button
-    lateinit var mOffBtn: Button
-    lateinit var mDiscoverBtn: Button
-    lateinit var mPairedBtn: Button
-    lateinit var mConnectBtn: Button
-    lateinit var mControllBtn: Button
-    lateinit var mBlueAdapter: BluetoothAdapter
+    lateinit var statusBlueTv: TextView
+    lateinit var pairedTv: TextView
+    lateinit var onBtn: Button
+    lateinit var offBtn: Button
+    lateinit var discoverBtn: Button
+    lateinit var pairedBtn: Button
+    lateinit var connectBtn: Button
+    lateinit var controllBtn: Button
+    lateinit var blueAdapter: BluetoothAdapter
 
     //static bt connection
     companion object {
-        lateinit var mNxtConnection: NxtConnection
-
-        fun getNxtConnection() : NxtConnection {
-            return mNxtConnection
-        }
+        lateinit var nxtConnection: NxtConnection
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,20 +39,19 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         //init
-        mStatusBlueTv = findViewById(R.id.statusBluetoothTv)
-        mPairedTv = findViewById(R.id.statusBluetoothTv)
-        mBlueIv = findViewById(R.id.bluetoothIv)
-        mOnBtn = findViewById(R.id.onBtn)
-        mOffBtn = findViewById(R.id.offBtn)
-        mDiscoverBtn = findViewById(R.id.discoverBtn)
-        mPairedBtn = findViewById(R.id.pairedBtn)
-        mConnectBtn = findViewById(R.id.connectBtn)
-        mControllBtn = findViewById(R.id.controllBtn)
-        mBlueAdapter = BluetoothAdapter.getDefaultAdapter()
-        mNxtConnection = NxtConnection(COCKY)
+        statusBlueTv = findViewById(R.id.statusBluetooth)
+        pairedTv = findViewById(R.id.statusBluetooth)
+        onBtn = findViewById(R.id.onBtn)
+        offBtn = findViewById(R.id.offBtn)
+        discoverBtn = findViewById(R.id.discoverBtn)
+        pairedBtn = findViewById(R.id.pairedBtn)
+        connectBtn = findViewById(R.id.connectBtn)
+        controllBtn = findViewById(R.id.controllBtn)
+        blueAdapter = BluetoothAdapter.getDefaultAdapter()
+        nxtConnection = NxtConnection(COCKY)
 
-        mOnBtn.setOnClickListener {
-            if (!mBlueAdapter.isEnabled) {
+        onBtn.setOnClickListener {
+            if (!blueAdapter.isEnabled) {
                 showToast("Turning On Bluetooth...")
                 //intent to on bluetooth
                 val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -66,27 +59,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mDiscoverBtn.setOnClickListener {
+        discoverBtn.setOnClickListener {
             intent = Intent(this, DeviceActivity::class.java)
             startActivity(intent)
         }
 
-        mOffBtn.setOnClickListener {
-            if (mBlueAdapter.isEnabled()) {
-                mBlueAdapter.disable();
+        offBtn.setOnClickListener {
+            if (blueAdapter.isEnabled()) {
+                blueAdapter.disable();
                 showToast("Turning Bluetooth Off");
-//                mBlueIv.setImageResource(R.drawable.ic_action_off);
+//                blueIv.setImageResource(R.drawable.ic_action_off);
             } else {
                 showToast("Bluetooth is already off");
             }
         }
 
-        mPairedBtn.setOnClickListener {
-            if (mBlueAdapter.isEnabled) {
-                mPairedTv.text = "Paired Devices"
-                val devices = mBlueAdapter.bondedDevices
+        pairedBtn.setOnClickListener {
+            if (blueAdapter.isEnabled) {
+                pairedTv.text = "Paired Devices"
+                val devices = blueAdapter.bondedDevices
                 for (device in devices) {
-                    mPairedTv.append("\nDevice: " + device.name + ", " + device)
+                    pairedTv.append("\nDevice: " + device.name + ", " + device)
                 }
             } else {
                 //bluetooth is off so can't get paired devices
@@ -94,16 +87,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mConnectBtn.setOnClickListener {
-            mNxtConnection.setBluetooth(NxtConnection.BT_ON)
-            if(mNxtConnection.connect()) {
+        connectBtn.setOnClickListener {
+            nxtConnection.setBluetooth(NxtConnection.BT_ON)
+            if (nxtConnection.connect()) {
                 Log.d(TAG, "BT connected")
+                statusBlueTv.setText(String.format("Connected to %s", nxtConnection.address))
             } else {
                 Log.d(TAG, "BT connection failed")
+                statusBlueTv.setText(String.format("No connection"))
             }
         }
 
-        mControllBtn.setOnClickListener {
+        controllBtn.setOnClickListener {
             val intent = Intent(this, ControllActivity::class.java)
             startActivity(intent);
         }
