@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ObjectS</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_device">DeviceActivity</string>
+    <string name="title_activity_brick">BrickActivity</string>
+    <string name="title_activity_controll">ControllActivity</string>
+</resources>
