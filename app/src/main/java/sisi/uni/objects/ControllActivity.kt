@@ -1,13 +1,9 @@
 package sisi.uni.objects
 
-import android.bluetooth.BluetoothAdapter
-import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button
 import android.widget.TextView
-
 import kotlinx.android.synthetic.main.activity_controll.*
 
 class ControllActivity : AppCompatActivity() {
@@ -33,19 +29,19 @@ class ControllActivity : AppCompatActivity() {
         nxtConnection = MainActivity.nxtConnection
 
         upBtn.setOnClickListener {
-            nxtConnection.drive("up")
+            nxtConnection.send("up")
         }
 
         downBtn.setOnClickListener {
-            nxtConnection.drive("down")
+            nxtConnection.send("down")
         }
 
         leftBtn.setOnClickListener {
-            nxtConnection.drive("left")
+            nxtConnection.send("left")
         }
 
         rightBtn.setOnClickListener {
-            nxtConnection.drive("right")
+            nxtConnection.send("right")
         }
 
         if (nxtConnection.connected) {

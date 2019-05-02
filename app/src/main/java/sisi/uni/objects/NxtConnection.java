@@ -27,7 +27,7 @@ public class NxtConnection {
         this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
-    public void drive(String direction) {
+    public void send(String direction) {
         Log.d(TAG, direction);
         boolean success = true;
 
@@ -57,7 +57,7 @@ public class NxtConnection {
                 break;
 
             default:
-                Log.d(TAG, "invalid direction to drive");
+                Log.d(TAG, "invalid direction to send");
         }
 
         if(!success) {

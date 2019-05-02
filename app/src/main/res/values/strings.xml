@@ -8,4 +8,11 @@
     <string name="left">Left</string>
     <string name="up">Up</string>
     <string name="down">Down</string>
+    <string name="turn_on">Turn On</string>
+    <string name="turn_off">Turn Off</string>
+    <string name="discover">Discover</string>
+    <string name="discover">Discover</string>
+    <string name="connect">Connect</string>
+    <string name="get_paired_devices">Get Paired Devices</string>
+    <string name="controll">Controll</string>
 </resources>
