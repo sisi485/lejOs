@@ -13,6 +13,7 @@
             android:text="@string/right"
             android:layout_width="114dp"
             android:layout_height="70dp"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:id="@+id/buttonRight"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
@@ -22,6 +23,7 @@
             android:text="@string/left"
             android:layout_width="114dp"
             android:layout_height="70dp"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:id="@+id/buttonLeft"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/buttonDown"
@@ -31,6 +33,7 @@
             android:text="@string/up"
             android:layout_width="114dp"
             android:layout_height="70dp"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:id="@+id/buttonUp"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/buttonDown"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
@@ -39,16 +42,46 @@
             android:text="@string/down"
             android:layout_width="114dp"
             android:layout_height="70dp"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:id="@+id/buttonDown"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
     <TextView
-            android:text="TextView"
+            android:text="@string/textview"
+            android:minWidth="200dp"
             android:layout_width="208dp"
             android:layout_height="27dp"
             android:id="@+id/connectedView"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+            android:text="@string/init"
+            android:minWidth="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:id="@+id/buttonInit" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/connectedView"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
+    <Button
+            android:text="@string/controll"
+            android:minWidth="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:id="@+id/buttonCont" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/buttonInit" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+    />
+    <Button
+            android:text="@string/auto"
+            android:minWidth="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:id="@+id/buttonAuto" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/buttonCont" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
 </android.support.constraint.ConstraintLayout>

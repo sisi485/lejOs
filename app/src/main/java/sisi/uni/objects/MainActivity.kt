@@ -2,7 +2,6 @@ package sisi.uni.objects
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
-
 import kotlinx.android.synthetic.main.activity_main.*
 import android.bluetooth.BluetoothAdapter
 import android.widget.Button
@@ -14,7 +13,6 @@ import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
-    var TAG = "LeJOSDroid"
     var COCKY = "00:16:53:18:8F:D3"
 
     //view element
@@ -30,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     //static bt connection
     companion object {
+        var TAG = "ObjectS"
         lateinit var nxtConnection: NxtConnection
     }
 
@@ -68,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             if (blueAdapter.isEnabled()) {
                 blueAdapter.disable();
                 showToast("Turning Bluetooth Off");
-//                blueIv.setImageResource(R.drawable.ic_action_off);
             } else {
                 showToast("Bluetooth is already off");
             }

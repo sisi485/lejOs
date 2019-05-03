@@ -11,8 +11,11 @@
     <string name="turn_on">Turn On</string>
     <string name="turn_off">Turn Off</string>
     <string name="discover">Discover</string>
-    <string name="discover">Discover</string>
     <string name="connect">Connect</string>
     <string name="get_paired_devices">Get Paired Devices</string>
     <string name="controll">Controll</string>
+    <string name="textview">TextView</string>
+    <string name="calibrate">calibrate</string>
+    <string name="auto">Auto</string>
+    <string name="init">Init</string>
 </resources>
