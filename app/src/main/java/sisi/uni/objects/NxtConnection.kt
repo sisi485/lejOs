@@ -92,7 +92,7 @@ class NxtConnection(var address: String) {
                 val writer = OutputStreamWriter(this.bluetoothSocket!!.outputStream)
                 writer.write(msg)
                 writer.flush()
-                Log.d(TAG, "Successfully wrote message")
+                Log.d(TAG, "Successfully wrote message ${msg.toChar()}")
                 return true
             } catch (e: Exception) {
                 Log.d(TAG, "Couldn't write message")

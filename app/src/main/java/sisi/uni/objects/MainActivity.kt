@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var pairedTv: TextView
     lateinit var onBtn: Button
     lateinit var offBtn: Button
-    lateinit var discoverBtn: Button
     lateinit var pairedBtn: Button
     lateinit var connectBtn: Button
     lateinit var controllBtn: Button
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         pairedTv = findViewById(R.id.statusBluetooth)
         onBtn = findViewById(R.id.onBtn)
         offBtn = findViewById(R.id.offBtn)
-        discoverBtn = findViewById(R.id.discoverBtn)
         pairedBtn = findViewById(R.id.pairedBtn)
         connectBtn = findViewById(R.id.connectBtn)
         controllBtn = findViewById(R.id.controllBtn)
@@ -56,11 +54,6 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                 startActivityForResult(intent, 0)
             }
-        }
-
-        discoverBtn.setOnClickListener {
-            intent = Intent(this, DeviceActivity::class.java)
-            startActivity(intent)
         }
 
         offBtn.setOnClickListener {
