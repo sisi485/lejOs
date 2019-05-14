@@ -5,9 +5,11 @@ import android.bluetooth.BluetoothSocket
 import android.util.Log
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import java.io.UTFDataFormatException
 import java.util.*
 
 class NxtConnection(var address: String) {
+
     var connected = false
 
     private val TAG = MainActivity.TAG + " - NxtConn"
@@ -19,14 +21,7 @@ class NxtConnection(var address: String) {
         this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     }
 
-    fun send(direction: String) {
-        Log.d(TAG, direction)
-        if (!writeMessage(direction[0].toInt())) {
-            Log.d(TAG, "error sending $direction")
-        }
-    }
-
-    fun setBluetooth(state: Boolean) {
+    fun setState(state: Boolean) {
         Log.d(TAG, "Setting state to $state")
         if (state == BT_ON) {
             // Check if bluetooth is off
@@ -58,49 +53,45 @@ class NxtConnection(var address: String) {
                 nxt.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"))
             this.bluetoothSocket!!.connect()
             connected = true
-            Log.d(TAG, "Connection to " + this.address + " established")
+            Log.d(TAG, "connection to " + this.address + " established")
 
         } catch (e: Exception) {
-            Log.d(TAG, "Error connecting to BT Device, E:$e")
+            Log.d(TAG, "error connecting to BT device, E:$e")
         }
         return connected
     }
 
+    fun send(command: BtCommand?) = when (writeMessage(command!!.ordinal)) {
+        true -> {
+            Log.d(TAG, "successfully wrote message $command")
+        }
+        false -> {
+            Log.d(TAG, "error sending $command")
+        }
+    }
+
+    private fun writeMessage(msg: Int): Boolean {
+        try {
+            val writer = OutputStreamWriter(this.bluetoothSocket!!.outputStream)
+            writer.write(msg)
+            writer.flush()
+            return true
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
     fun readMessage(): Int? {
         var message: Int?
-
-        if (this.bluetoothSocket != null) {
-            try {
-                val input = InputStreamReader(this.bluetoothSocket!!.inputStream)
-                message = input.read()
-                Log.d(TAG, "Successfully read message")
-            } catch (e: Exception) {
-                message = null
-                Log.d(TAG, "Couldn't read message")
-            }
-
-        } else {
+        try {
+            val input = InputStreamReader(this.bluetoothSocket!!.inputStream)
+            message = input.read()
+            Log.d(TAG, "Successfully read message")
+        } catch (e: Exception) {
             message = null
             Log.d(TAG, "Couldn't read message")
         }
         return message
-    }
-
-    private fun writeMessage(msg: Int): Boolean {
-        if (this.bluetoothSocket != null) {
-            try {
-                val writer = OutputStreamWriter(this.bluetoothSocket!!.outputStream)
-                writer.write(msg)
-                writer.flush()
-                Log.d(TAG, "Successfully wrote message ${msg.toChar()}")
-                return true
-            } catch (e: Exception) {
-                Log.d(TAG, "Couldn't write message")
-            }
-        } else {
-            Log.d(TAG, "Couldn't write message, no connetion")
-        }
-        return false
     }
 
     companion object {

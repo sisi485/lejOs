@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_device">DeviceActivity</string>
     <string name="title_activity_brick">BrickActivity</string>
-    <string name="title_activity_controll">ControllActivity</string>
+    <string name="title_activity_control">ControlActivity</string>
     <string name="right">Right</string>
     <string name="left">Left</string>
     <string name="up">Up</string>
@@ -13,9 +13,12 @@
     <string name="discover">Discover</string>
     <string name="connect">Connect</string>
     <string name="get_paired_devices">Get Paired Devices</string>
-    <string name="controll">Controll</string>
+    <string name="control">Control</string>
     <string name="textview">TextView</string>
     <string name="calibrate">calibrate</string>
     <string name="auto">Auto</string>
     <string name="init">Init</string>
+    <string name="speed_up">Speed up</string>
+    <string name="slow_down">Slow down</string>
+    <string name="stop">Stop</string>
 </resources>

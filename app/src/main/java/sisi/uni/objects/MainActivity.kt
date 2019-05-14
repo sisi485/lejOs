@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var offBtn: Button
     lateinit var pairedBtn: Button
     lateinit var connectBtn: Button
-    lateinit var controllBtn: Button
+    lateinit var controlBtn: Button
     lateinit var blueAdapter: BluetoothAdapter
 
     //static bt connection
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         offBtn = findViewById(R.id.offBtn)
         pairedBtn = findViewById(R.id.pairedBtn)
         connectBtn = findViewById(R.id.connectBtn)
-        controllBtn = findViewById(R.id.controllBtn)
+        controlBtn = findViewById(R.id.controlBtn)
         blueAdapter = BluetoothAdapter.getDefaultAdapter()
         nxtConnection = NxtConnection(COCKY)
 
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         connectBtn.setOnClickListener {
-            nxtConnection.setBluetooth(NxtConnection.BT_ON)
+            nxtConnection.setState(NxtConnection.BT_ON)
             if (nxtConnection.connect()) {
                 Log.d(TAG, "BT connected")
                 statusBlueTv.setText(String.format("Connected to %s", nxtConnection.address))
@@ -89,8 +89,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        controllBtn.setOnClickListener {
-            val intent = Intent(this, ControllActivity::class.java)
+        controlBtn.setOnClickListener {
+            val intent = Intent(this, ControlActivity::class.java)
             startActivity(intent);
         }
     }

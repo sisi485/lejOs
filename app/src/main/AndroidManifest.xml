@@ -15,8 +15,8 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".ControllActivity"
-                android:label="@string/title_activity_controll"
+                android:name=".ControlActivity"
+                android:label="@string/title_activity_control"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

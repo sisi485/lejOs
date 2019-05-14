@@ -6,8 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/activity_controll"
-        tools:context=".ControllActivity">
+        tools:showIn="@layout/activity_control"
+        tools:context=".ControlActivity">
 
     <Button
             android:text="@string/right"
@@ -66,7 +66,7 @@
             android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/connectedView"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
     <Button
-            android:text="@string/controll"
+            android:text="@string/control"
             android:minWidth="200dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +75,37 @@
             app:layout_constraintTop_toBottomOf="@+id/buttonInit" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
     />
+    <Button
+            android:text="@string/speed_up"
+            android:minWidth="200dp"
+            android:layout_width="96dp"
+            android:layout_height="55dp"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:id="@+id/buttonSpeedUp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonRight" app:layout_constraintStart_toEndOf="@+id/buttonUp"
+            android:layout_marginStart="8dp"/>
+    <Button
+            android:text="@string/slow_down"
+            android:minWidth="200dp"
+            android:layout_width="96dp"
+            android:layout_height="55dp"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:id="@+id/buttonSlowDown"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonLeft" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/buttonUp"/>
+    <Button
+            android:text="@string/stop"
+            android:minWidth="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:id="@+id/buttonStop"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintHorizontal_bias="0.482"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/buttonAuto"/>
     <Button
             android:text="@string/auto"
             android:minWidth="200dp"
