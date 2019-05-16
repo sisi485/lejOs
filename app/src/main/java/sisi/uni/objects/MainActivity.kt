@@ -17,43 +17,41 @@ import android.util.Log
  * This class handles the main activity, initialize click listener and is the first view shown, by starting the app.
  */
 class MainActivity : AppCompatActivity() {
-
-
     /**
-     * String to COCKY mac adr
+     * string to COCKY mac adr
      */
     var COCKY = "00:16:53:18:8F:D3"
     //view elements
     /**
-     * statusBlueTv text view, displays current state
+     * statusBlueTv text view displays current state
      */
     lateinit var statusBlueTv: TextView
     /**
-     * paried Button, uses onClickListener to send kill signal
+     * paired Button uses onClickListener to send kill signal
      */
     lateinit var pairedTv: TextView
     /**
-     * on Button, uses onClickListener to turn bt on
+     * on Button uses onClickListener to turn bt on
      */
     lateinit var onBtn: Button
     /**
-     * off Button, uses onClickListener to turn bt off
+     * off Button uses onClickListener to turn bt off
      */
     lateinit var offBtn: Button
     /**
-     * paired Button, uses onClickListener to show paired devices
+     * paired Button uses onClickListener to show paired devices
      */
     lateinit var pairedBtn: Button
     /**
-     * connect Button, uses onClickListener to connect to COCKY
+     * connect Button uses onClickListener to connect to COCKY
      */
     lateinit var connectBtn: Button
     /**
-     * control Button, uses onClickListener to start control activity
+     * control Button uses onClickListener to start control activity
      */
     lateinit var controlBtn: Button
     /**
-     * bt adapter, used to turn bt on and off
+     * bt adapter used to turn bt on and off
      */
     lateinit var blueAdapter: BluetoothAdapter
 
@@ -70,10 +68,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * on create function, called by android if the page shows up.
-     * initializes onclick events and creates depending objects(nxtConnection..).
+     * On create function, called by android if the page shows up.
+     * Initializes onclick events and creates depending objects(nxtConnection..).
      *
-     * @param savedInstanceState android based information.
+     * @param savedInstanceState    android based information
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,9 +139,9 @@ class MainActivity : AppCompatActivity() {
 
 
     /**
-     * prints depending string to the user.
+     * Prints depending string to the user.
      *
-     * @param str string to toast.
+     * @param str   String to toast
      */
     private fun showToast(str: String) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show()

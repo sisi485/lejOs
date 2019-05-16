@@ -18,7 +18,7 @@ import java.util.*
  */
 class NxtConnection(var address: String) {
     /**
-     * Connection state, bluetooth adapter and depending socket.
+     * connection state, bluetooth adapter and depending socket.
      */
     var connected = false
     /**
@@ -45,7 +45,7 @@ class NxtConnection(var address: String) {
     /**
      * Sets the bt state.
      *
-     * @param state         Boolean to activate or deactivate the bt connection.
+     * @param state         Boolean to activate or deactivate the bt connection
      */
     fun setState(state: Boolean) {
         Log.d(TAG, "Setting state to $state")
@@ -73,7 +73,7 @@ class NxtConnection(var address: String) {
     /**
      * Connect to depending mac adr.
      *
-     * @return          Boolean which indicates the success.
+     * @return          Boolean which indicates the success
      */
     fun connect(): Boolean {
         this.connected = false
@@ -95,8 +95,8 @@ class NxtConnection(var address: String) {
     /**
      * Wrapper function, to send a command to my bt connection and create log.
      *
-     * @param command   Command to be send.
-     * @return          Boolean which indicates the success.
+     * @param command   Command to be send
+     * @return          Boolean which indicates the success
      */
     fun send(command: BtCommand?) = when (writeMessage(command!!.ordinal)) {
         true -> {
@@ -110,8 +110,8 @@ class NxtConnection(var address: String) {
     /**
      * Sends a command to my bt connection.
      *
-     * @param msg       Int to be send.
-     * @return          Boolean which indicates the success.
+     * @param msg       Int to be send
+     * @return          Boolean which indicates the success
      */
     private fun writeMessage(msg: Int): Boolean {
         try {
@@ -127,7 +127,7 @@ class NxtConnection(var address: String) {
     /**
      * Reads a command from my bt connection.
      *
-     * @return          Int which represents the commands.
+     * @return          Int which represents the commands
      */
     fun readMessage(): Int? {
         var message: Int?
@@ -144,11 +144,11 @@ class NxtConnection(var address: String) {
 
     companion object {
         /**
-         * BT_ON, Boolean for bt on.
+         * BT_ON    Boolean for bt on
          */
         val BT_ON = true
         /**
-         * BT_OFF, Boolean for bt off.
+         * BT_OFF   Boolean for bt off
          */
         val BT_OFF = false
     }
