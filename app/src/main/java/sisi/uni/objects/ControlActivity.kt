@@ -11,6 +11,12 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_control.*
 import java.lang.Exception
 
+/**
+ * Control activity.
+ * @author Simon Schlätker
+ *
+ * This class handles the control activity, initialize touch listener and maps the bt commands.
+ */
 class ControlActivity : AppCompatActivity(), View.OnTouchListener {
 
     var TAG = "${MainActivity.TAG} - CtrlActivity"
@@ -19,7 +25,9 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
         UP, DOWN
     }
 
-
+    /**
+     * Buttons and text view objects.
+     */
     lateinit var nxtConnection: NxtConnection
     lateinit var upBtn: Button
     lateinit var downBtn: Button
@@ -31,11 +39,15 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
     lateinit var speedUpBtn: Button
     lateinit var slowDownBtn: Button
     lateinit var stopBtn: Button
+    lateinit var killBtn: Button
     lateinit var connectedView: TextView
-
-    //TODO luci
     @SuppressLint("ClickableViewAccessibility")
 
+    /**
+     * on create function, called by android if the page shows
+     *
+     * @param savedInstanceState android based information.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_control)
@@ -51,6 +63,7 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
         speedUpBtn = findViewById(R.id.buttonSpeedUp)
         slowDownBtn = findViewById(R.id.buttonSlowDown)
         stopBtn = findViewById(R.id.buttonStop)
+        killBtn = findViewById(R.id.buttonKill)
         connectedView = findViewById(R.id.connectedView)
 
         nxtConnection = MainActivity.nxtConnection
@@ -65,6 +78,7 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
         speedUpBtn.setOnTouchListener(this)
         slowDownBtn.setOnTouchListener(this)
         stopBtn.setOnTouchListener(this)
+        killBtn.setOnTouchListener(this)
 
         if (nxtConnection.connected) {
             connectedView.setText(String.format("Connected to %s", nxtConnection.address))
@@ -73,6 +87,12 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
         }
     }
 
+    /**
+     * parse commands for bluetooth connection, called by on touch listener
+     *
+     * @param btn   android button object.
+     * @param d     direction up or down, depend on whether the buttons is pressed or released.
+     */
     private fun parseCmd(btn: Button, d: Direction): BtCommand? {
         if (d == Direction.UP) {
             if (btn == upBtn || btn == downBtn || btn == leftBtn || btn == rightBtn) {
@@ -111,6 +131,9 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
                 stopBtn -> {
                     return BtCommand.STOP
                 }
+                killBtn -> {
+                    return BtCommand.KILL
+                }
             }
         }
 
@@ -118,6 +141,12 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
         return BtCommand.AUTOSTART
     }
 
+    /**
+     * on touch listener for all view elements in this activity.
+     *
+     * @param v     view element.
+     * @param m     motion event, button pressed, released...
+     */
     override fun onTouch(v: View, m: MotionEvent): Boolean {
         val cmd: BtCommand?
         val b = v as Button

@@ -10,12 +10,20 @@ import android.widget.Toast
 import android.content.Intent
 import android.util.Log
 
-
+/**
+ * Main activity.
+ * @author Simon Schlätker
+ *
+ * This class handles the main activity, initialize click listener and is the first view shown, by starting the app.
+ */
 class MainActivity : AppCompatActivity() {
 
-    var COCKY = "00:16:53:18:8F:D3"
 
-    //view element
+    /**
+     * Buttons, text view objects, cocky mac adr and single nxt connection object.
+     */
+    var COCKY = "00:16:53:18:8F:D3"
+    //view elements
     lateinit var statusBlueTv: TextView
     lateinit var pairedTv: TextView
     lateinit var onBtn: Button
@@ -31,6 +39,12 @@ class MainActivity : AppCompatActivity() {
         lateinit var nxtConnection: NxtConnection
     }
 
+    /**
+     * on create function, called by android if the page shows.
+     * initializes onclick events and creates depending objects(nxtConnection..).
+     *
+     * @param savedInstanceState android based information.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -95,7 +109,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun showToast(str: String) {
+
+    /**
+     * prints depending string to the user.
+     *
+     * @param str string to toast.
+     */
+    private fun showToast(str: String) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
     }
 }

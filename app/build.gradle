@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.dokka'
 
 android {
     compileSdkVersion 28
@@ -20,8 +19,48 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dokka {
+        outputFormat = 'html'
+        outputDirectory = "$buildDir/javadoc"
+        skipDeprecated = true
+        skipEmptyPackages = true
+
+        packageOptions {
+            prefix = "android"
+            suppress = true
+        }
+        packageOptions {
+            prefix = "androidx.versionedparcelable.R"
+            suppress = true
+        }
+        packageOptions {
+            prefix = "sisi.uni.objects.R"
+            suppress = true
+        }
+        packageOptions {
+            prefix = "sisi.uni.objects.BuildConfig"
+            suppress = true
+        }
+        packageOptions {
+            prefix = "sisi.uni.objects"
+            suppress = false
+            //other options
+        }
+    }
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.18"
+    }
+}
+
+repositories {
+    jcenter()
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
