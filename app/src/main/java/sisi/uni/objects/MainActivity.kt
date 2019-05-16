@@ -20,27 +20,57 @@ class MainActivity : AppCompatActivity() {
 
 
     /**
-     * Buttons, text view objects, cocky mac adr and single nxt connection object.
+     * String to COCKY mac adr
      */
     var COCKY = "00:16:53:18:8F:D3"
     //view elements
+    /**
+     * statusBlueTv text view, displays current state
+     */
     lateinit var statusBlueTv: TextView
+    /**
+     * paried Button, uses onClickListener to send kill signal
+     */
     lateinit var pairedTv: TextView
+    /**
+     * on Button, uses onClickListener to turn bt on
+     */
     lateinit var onBtn: Button
+    /**
+     * off Button, uses onClickListener to turn bt off
+     */
     lateinit var offBtn: Button
+    /**
+     * paired Button, uses onClickListener to show paired devices
+     */
     lateinit var pairedBtn: Button
+    /**
+     * connect Button, uses onClickListener to connect to COCKY
+     */
     lateinit var connectBtn: Button
+    /**
+     * control Button, uses onClickListener to start control activity
+     */
     lateinit var controlBtn: Button
+    /**
+     * bt adapter, used to turn bt on and off
+     */
     lateinit var blueAdapter: BluetoothAdapter
 
     //static bt connection
     companion object {
+        /**
+         * TAG, logging depending information
+         */
         var TAG = "ObjectS"
+        /**
+         * nxtConnection, single object to share with other activities
+         */
         lateinit var nxtConnection: NxtConnection
     }
 
     /**
-     * on create function, called by android if the page shows.
+     * on create function, called by android if the page shows up.
      * initializes onclick events and creates depending objects(nxtConnection..).
      *
      * @param savedInstanceState android based information.

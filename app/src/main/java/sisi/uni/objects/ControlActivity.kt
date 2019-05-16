@@ -19,32 +19,82 @@ import java.lang.Exception
  */
 class ControlActivity : AppCompatActivity(), View.OnTouchListener {
 
-    var TAG = "${MainActivity.TAG} - CtrlActivity"
+    /**
+     * TAG, logging depending information
+     */
+    private var TAG = "${MainActivity.TAG} - CtrlActivity"
 
+    /**
+     * enum class to indicate whether direction is up or down
+     */
     enum class Direction {
-        UP, DOWN
+        /**
+         * UP, direction up
+         */
+        UP,
+        /**
+         * DOWN, direction down
+         */
+        DOWN
     }
 
     /**
-     * Buttons and text view objects.
+     * nxtConnection object, represents bt service
      */
     lateinit var nxtConnection: NxtConnection
+    /**
+     * up Button object, uses onTouchListener to drive upside
+     */
     lateinit var upBtn: Button
+    /**
+     * down Button, uses onTouchListener to drive downside
+     */
     lateinit var downBtn: Button
+    /**
+     * left Button, uses onTouchListener to drive left
+     */
     lateinit var leftBtn: Button
+    /**
+     * right Button, uses onTouchListener to drive right
+     */
     lateinit var rightBtn: Button
+    /**
+     * init Button, uses onTouchListener to calibrate
+     */
     lateinit var initBtn: Button
+    /**
+     * control Button, uses onTouchListener to drive in app mode
+     */
     lateinit var ctrlBtn: Button
+    /**
+     * auto Button, uses onTouchListener to drive in auto mode
+     */
     lateinit var autoBtn: Button
+    /**
+     * speed up Button, uses onTouchListener to set the speed up
+     */
     lateinit var speedUpBtn: Button
+    /**
+     * slow down Button, uses onTouchListener to lower the speed
+     */
     lateinit var slowDownBtn: Button
+    /**
+     * stop Button, uses onTouchListener to send stop signal
+     */
     lateinit var stopBtn: Button
+    /**
+     * kill Button, uses onTouchListener to send kill signal
+     */
     lateinit var killBtn: Button
+    /**
+     * connected text view, displays current state
+     */
     lateinit var connectedView: TextView
+
     @SuppressLint("ClickableViewAccessibility")
 
     /**
-     * on create function, called by android if the page shows
+     * on create function, called by android if the page shows up.
      *
      * @param savedInstanceState android based information.
      */

@@ -13,18 +13,30 @@ import java.util.*
  * @author Simon Schlätker
  *
  * This class handles the bt connection to Cocky and provides functions to write or read msg.
+ *
+ * @param address       mac adr to bt device
  */
 class NxtConnection(var address: String) {
-
-
     /**
      * Connection state, bluetooth adapter and depending socket.
      */
     var connected = false
+    /**
+     * TAG, logging depending information
+     */
     private val TAG = MainActivity.TAG + " - NxtConn"
+    /**
+     * bt adapter, shared by main activity
+     */
     private val bluetoothAdapter: BluetoothAdapter
+    /**
+     * btSocket, used to send bt commands
+     */
     private var bluetoothSocket: BluetoothSocket? = null
 
+    /**
+     * init, constructor to log used mac adr and get default bt adapter
+     */
     init {
         Log.d(TAG, "MacAdr set to: $address")
         this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
@@ -57,7 +69,6 @@ class NxtConnection(var address: String) {
             }
         }
     }
-
 
     /**
      * Connect to depending mac adr.
@@ -96,7 +107,6 @@ class NxtConnection(var address: String) {
         }
     }
 
-
     /**
      * Sends a command to my bt connection.
      *
@@ -113,7 +123,6 @@ class NxtConnection(var address: String) {
             throw e
         }
     }
-
 
     /**
      * Reads a command from my bt connection.
@@ -134,7 +143,13 @@ class NxtConnection(var address: String) {
     }
 
     companion object {
+        /**
+         * BT_ON, Boolean for bt on.
+         */
         val BT_ON = true
+        /**
+         * BT_OFF, Boolean for bt off.
+         */
         val BT_OFF = false
     }
 }
