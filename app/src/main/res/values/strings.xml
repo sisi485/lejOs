@@ -22,4 +22,7 @@
     <string name="slow_down">Slow down</string>
     <string name="stop">Stop</string>
     <string name="kill">Kill</string>
+    <string name="title_activity_accelerometer">AccelerometerActivity</string>
+    <string name="accelerometer">Accelerometer</string>
+    <string name="kill_again">Kill again?</string>
 </resources>

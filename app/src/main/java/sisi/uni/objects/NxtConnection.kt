@@ -146,10 +146,26 @@ class NxtConnection(var address: String) {
         /**
          * BT_ON    Boolean for bt on
          */
-        val BT_ON = true
+        var BT_ON = true
         /**
          * BT_OFF   Boolean for bt off
          */
-        val BT_OFF = false
+        var BT_OFF = false
+        /**
+         * Lego mac adr prefix
+         */
+        var PREFIX = "00:16:53"
+        /**
+         * Lego mac adr prefix
+         */
+        val macAdr: ArrayList<String> = ArrayList()
+        fun init (){
+            macAdr.add("00:16:53:15:DB:DA")
+            macAdr.add("00:16:53:16:EE:0A")
+            macAdr.add("00:16:53:18:8F:DE")
+        }
+        fun tryIt(str: String) {
+
+        }
     }
 }

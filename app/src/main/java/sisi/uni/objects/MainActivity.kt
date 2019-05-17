@@ -51,6 +51,10 @@ class MainActivity : AppCompatActivity() {
      */
     lateinit var controlBtn: Button
     /**
+     * accelerometer Button uses onClickListener to start accelerometer activity
+     */
+    lateinit var accelerometerBtn: Button
+    /**
      * bt adapter used to turn bt on and off
      */
     lateinit var blueAdapter: BluetoothAdapter
@@ -65,6 +69,10 @@ class MainActivity : AppCompatActivity() {
          * nxtConnection, single object to share with other activities
          */
         lateinit var nxtConnection: NxtConnection
+        /**
+         * COCKY, macAdr
+         */
+        var COCKY = "00:16:53:18:8F:D3"
     }
 
     /**
@@ -86,9 +94,11 @@ class MainActivity : AppCompatActivity() {
         pairedBtn = findViewById(R.id.pairedBtn)
         connectBtn = findViewById(R.id.connectBtn)
         controlBtn = findViewById(R.id.controlBtn)
+        accelerometerBtn = findViewById(R.id.accelBtn)
         blueAdapter = BluetoothAdapter.getDefaultAdapter()
         nxtConnection = NxtConnection(COCKY)
 
+        //set onclick
         onBtn.setOnClickListener {
             if (!blueAdapter.isEnabled) {
                 showToast("Turning On Bluetooth...")
@@ -131,9 +141,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //start other activities
         controlBtn.setOnClickListener {
             val intent = Intent(this, ControlActivity::class.java)
-            startActivity(intent);
+            startActivity(intent)
+        }
+
+        accelerometerBtn.setOnClickListener {
+            val intent = Intent(this, AccelerometerActivity::class.java)
+            startActivity(intent)
         }
     }
 

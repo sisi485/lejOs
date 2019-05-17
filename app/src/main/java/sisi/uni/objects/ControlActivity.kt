@@ -1,8 +1,11 @@
 package sisi.uni.objects
 
 import android.annotation.SuppressLint
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothSocket
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.MovementMethod
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -10,6 +13,17 @@ import android.widget.Button
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_control.*
 import java.lang.Exception
+import java.util.*
+import android.widget.Toast
+import com.intel.bluetooth.RemoteDeviceHelper.getAddress
+import android.bluetooth.BluetoothDevice
+import android.content.Intent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.IntentFilter
+import java.io.BufferedInputStream
+import java.lang.Thread.sleep
+
 
 /**
  * Control activity.
@@ -87,6 +101,10 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
      */
     lateinit var killBtn: Button
     /**
+     * kill Button uses onTouchListener to send kill signal
+     */
+    lateinit var killBtBtn: Button
+    /**
      * connected text view displays current state
      */
     lateinit var connectedView: TextView
@@ -114,6 +132,7 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
         slowDownBtn = findViewById(R.id.buttonSlowDown)
         stopBtn = findViewById(R.id.buttonStop)
         killBtn = findViewById(R.id.buttonKill)
+        killBtBtn = findViewById(R.id.buttonKillBt)
         connectedView = findViewById(R.id.connectedView)
 
         nxtConnection = MainActivity.nxtConnection
@@ -129,6 +148,7 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
         slowDownBtn.setOnTouchListener(this)
         stopBtn.setOnTouchListener(this)
         killBtn.setOnTouchListener(this)
+        killBtBtn.setOnTouchListener(this)
 
         if (nxtConnection.connected) {
             connectedView.setText(String.format("Connected to %s", nxtConnection.address))
@@ -184,6 +204,9 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
                 killBtn -> {
                     return BtCommand.KILL
                 }
+                killBtBtn -> {
+                    return BtCommand.OK
+                }
             }
         }
         return BtCommand.AUTOSTART
@@ -212,10 +235,83 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
             }
         }
         try {
-            nxtConnection.send(cmd)
+            if (cmd != BtCommand.OK) {
+                nxtConnection.send(cmd)
+            } else {
+                if (m.action == MotionEvent.ACTION_DOWN) {
+                    toggleBtKill()
+                }
+            }
         } catch (e: Exception) {
             Log.d(TAG, "exception occurred by sending $cmd, $e")
         }
         return true
+    }
+
+
+    /**
+     * Toggle bt kill.
+     *
+     */
+    private fun toggleBtKill() {
+        var bluetoothSocket: BluetoothSocket
+        val bluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        val mReceiver = SingBroadcastReceiver()
+        bluetoothAdapter.startDiscovery()
+
+        //let's make a broadcast receiver to register our things
+        val ifilter = IntentFilter(BluetoothDevice.ACTION_FOUND)
+        this.registerReceiver(mReceiver, ifilter)
+
+    }
+
+    private fun connectBt(address: String, bluetoothSocket: BluetoothSocket, bluetoothAdapter: BluetoothAdapter) {
+        try {
+            var lBtSocked = bluetoothSocket
+            val nxt = bluetoothAdapter.getRemoteDevice(address)
+
+            lBtSocked =
+                nxt.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"))
+            lBtSocked.connect()
+            Log.d(TAG, "connection to " + address + " established")
+
+        } catch (e: Exception) {
+            Log.d(TAG, "error connecting to BT device, E:$e")
+        }
+    }
+
+
+    class Macchinetta(var cmd: String) : Thread() {
+
+        init {
+            run()
+            super.start()
+        }
+
+        override fun run() {
+            try {
+
+            } finally {
+
+            }
+        }
+
+
+    }
+
+    private inner class SingBroadcastReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.action //may need to chain this to a recognizing function
+            if (BluetoothDevice.ACTION_FOUND == action) {
+                // Get the BluetoothDevice object from the Intent
+                val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+                if (device.address.startsWith(NxtConnection.PREFIX)) {
+                    if(device.address != MainActivity.COCKY) {
+                        NxtConnection.macAdr.add(device.address)
+                        Log.d(TAG, "adding ${device.address}")
+                    }
+                }
+            }
+        }
     }
 }
