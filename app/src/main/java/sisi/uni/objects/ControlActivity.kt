@@ -1,6 +1,7 @@
 package sisi.uni.objects
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothSocket
 import android.os.Bundle
@@ -17,12 +18,15 @@ import java.util.*
 import android.widget.Toast
 import com.intel.bluetooth.RemoteDeviceHelper.getAddress
 import android.bluetooth.BluetoothDevice
-import android.content.Intent
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.IntentFilter
+import android.content.*
+import android.graphics.Color
+import android.text.InputType
+import android.text.method.KeyListener
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import java.io.BufferedInputStream
 import java.lang.Thread.sleep
+import android.widget.EditText
 
 
 /**
@@ -105,9 +109,17 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
      */
     lateinit var killBtBtn: Button
     /**
+     * connect new Button uses onTouchListener to connect to new mac adr
+     */
+    lateinit var connectNewBtn: Button
+    /**
      * connected text view displays current state
      */
     lateinit var connectedView: TextView
+
+    lateinit var editText: EditText
+    lateinit var originalKeyListener: KeyListener
+
 
     @SuppressLint("ClickableViewAccessibility")
 
@@ -133,7 +145,9 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
         stopBtn = findViewById(R.id.buttonStop)
         killBtn = findViewById(R.id.buttonKill)
         killBtBtn = findViewById(R.id.buttonKillBt)
+        connectNewBtn = findViewById(R.id.buttonConnectNew)
         connectedView = findViewById(R.id.connectedView)
+        editText = findViewById(R.id.edit_text)
 
         nxtConnection = MainActivity.nxtConnection
 
@@ -149,6 +163,33 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
         stopBtn.setOnTouchListener(this)
         killBtn.setOnTouchListener(this)
         killBtBtn.setOnTouchListener(this)
+        //killBtBtn.setOnTouchListener()
+
+        connectNewBtn.setOnClickListener {
+            try {
+                val builder = AlertDialog.Builder(this@ControlActivity)
+                builder.setTitle("New Mac Adr:")
+                editText.inputType = InputType.TYPE_CLASS_TEXT
+                (editText.parent as ViewGroup).removeView(editText)
+                builder.setView(editText)
+
+                builder.setPositiveButton("Ok") { _, _->
+                    nxtConnection = NxtConnection(editText.text.toString())
+                    Toast.makeText(applicationContext, "MAC Adr set to ${editText.text.toString()}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                builder.setNegativeButton("No") { _, _->
+                    Toast.makeText(applicationContext, "MAC Adr set to ${editText.text.toString()}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            } catch (e: Exception) {
+                Log.d(TAG, e.toString())
+            }
+        }
+
 
         if (nxtConnection.connected) {
             connectedView.setText(String.format("Connected to %s", nxtConnection.address))
@@ -306,7 +347,7 @@ class ControlActivity : AppCompatActivity(), View.OnTouchListener {
                 // Get the BluetoothDevice object from the Intent
                 val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
                 if (device.address.startsWith(NxtConnection.PREFIX)) {
-                    if(device.address != MainActivity.COCKY) {
+                    if (device.address != MainActivity.COCKY) {
                         NxtConnection.macAdr.add(device.address)
                         Log.d(TAG, "adding ${device.address}")
                     }
